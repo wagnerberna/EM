@@ -67,8 +67,8 @@ A URL de base para acesso das rotas é:
 ```
 
 **Campos Rotas:**  
-Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.  
--Header:
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:  
 Authorization: Bearer token
 
 Post - /user:
@@ -81,7 +81,7 @@ Post - /user:
 }
 ```
 
-Put - /user/{ID}:
+Put - /user/{ID}:  
 Define o nome do campo a ser atualizado ("name", "login", "password") e valor.
 
 ```json
@@ -91,7 +91,7 @@ Define o nome do campo a ser atualizado ("name", "login", "password") e valor.
 }
 ```
 
-Put - /user:
+Put - /user:  
 Define o nome do login a ser ativado ou desativado e valor (true, false).
 
 ```json
@@ -110,9 +110,9 @@ Define o nome do login a ser ativado ou desativado e valor (true, false).
 | Post   | /auth/logout    | Deslogar do sistema          |
 ```
 
-**Campos Rotas:**
+**Campos Rotas:**  
 Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
--Header:
+-Header:  
 Authorization: Bearer token
 
 Post - /auth/login:
@@ -137,12 +137,12 @@ Post - /auth/login:
 | Put    | /student        | Ativar ou desativar por login|
 ```
 
-**Campos Rotas:**
+**Campos Rotas:**  
 Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
--Header:
+-Header:  
 Authorization: Bearer token
 
-Post - /student:
+Post - /student:  
 Adiciona os dados do estudante os campos de string passam por uma normalização onde são colocados em minúsculos, retirados assentos e espaços no início e fim do campo para armazenamento, o CPF passa por um processo de retirada de pontos e traços.
 O e-mail é validado.
 
@@ -157,7 +157,7 @@ O e-mail é validado.
 }
 ```
 
-Put - /user/{ID}:
+Put - /user/{ID}:  
 Define o nome do campo a ser atualizado ("name", "birth_date", "address", "tutor_name", "cpf_tutor", "tutor_email") e valor.
 
 ```json
@@ -175,12 +175,12 @@ Define o nome do campo a ser atualizado ("name", "birth_date", "address", "tutor
 | Get    | /filters        | Filtro por palavra chave e campo a ser filtrado  |
 ```
 
-**Campos Rotas:**
+**Campos Rotas:**  
 Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
--Header:
+-Header:  
 Authorization: Bearer token
 
-Get - /filters:
+Get - /filters:  
 Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_email") e palavra chave da busca.
 
 ```json
@@ -204,12 +204,12 @@ Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_e
 | Delete | /gradegrid/{ID} | Deletar por ID               |
 ```
 
-**Campos Rotas:**
+**Campos Rotas:**  
 Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
--Header:
+-Header:  
 Authorization: Bearer token
 
-Post - /gradegrid:
+Post - /gradegrid:  
 Adiciona notas, as quais são arredondadas para uma casa decimal de forma automática.
 
 ```json
@@ -224,7 +224,7 @@ Adiciona notas, as quais são arredondadas para uma casa decimal de forma autom�
 }
 ```
 
-Get - /gradegrid:
+Get - /gradegrid:  
 Busca de notas do estudante por ano.
 
 ```json
@@ -234,7 +234,7 @@ Busca de notas do estudante por ano.
 }
 ```
 
-Put - /gradegrid/{ID}:
+Put - /gradegrid/{ID}:  
 Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
 
 ```json
@@ -244,7 +244,7 @@ Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology",
 }
 ```
 
-Put - /gradegrid:
+Put - /gradegrid:  
 Define o id do estudante, ano e nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
 
 ```json
@@ -258,7 +258,7 @@ Define o id do estudante, ano e nome do campo a ser atualizado ("portuguese", "m
 
 ## 🔒 Testes
 
-Os testes estão localizados no diretório: /tests
+Os testes estão localizados no diretório: /tests  
 Para rodar os testes é necessário executar o comando:
 
 ```bash
