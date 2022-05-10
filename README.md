@@ -2,8 +2,8 @@
 
 ## 💡 Objetivo:
 
-API Para cadastro de aluno realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos. O banco utilizado para esta função foi PostgreSQL, suas tabelas são geradas automaticamente ao iniciar o sistema.
-Como endpoints adicionais foi incluído um segundo cadastro de notas anuais dos alunos, sendo esta tabela conectada à primeira através da chave estrangeira de id do aluno.
+API Para cadastro de aluno realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos. O banco utilizado para esta função foi PostgreSQL, suas tabelas são geradas automaticamente ao iniciar o sistema.  
+Como endpoints adicionais foi incluído um segundo cadastro de notas anuais dos alunos, sendo esta tabela conectada à primeira através da chave estrangeira de id do aluno.  
 Também foram adicionados endpoints de cadastro e autenticação de logins de usuários para ter acesso ao sistema através de um token gerado na rota de login.
 
 ## 🛠 Tecnologias:
@@ -71,7 +71,9 @@ Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.
 -Header:  
 Authorization: Bearer token
 
-Post - /user:
+Post - /user:  
+O password é salvo no banco criptografado.
+Restrições: Não é permitido adicionar um login já existente.
 
 ```json
 {
@@ -143,8 +145,9 @@ Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.
 Authorization: Bearer token
 
 Post - /student:  
-Adiciona os dados do estudante os campos de string passam por uma normalização onde são colocados em minúsculos, retirados assentos e espaços no início e fim do campo para armazenamento, o CPF passa por um processo de retirada de pontos e traços.
-O e-mail é validado.
+Adiciona os dados do estudante, os campos de string passam por uma normalização onde são colocados em minúsculos, retirados acentos e espaços no início e fim do campo para armazenamento.  
+O CPF passa por um processo de retirada de pontos e traços.  
+O formato do e-mail é validado.
 
 ```json
 {
@@ -210,7 +213,8 @@ Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.
 Authorization: Bearer token
 
 Post - /gradegrid:  
-Adiciona notas, as quais são arredondadas para uma casa decimal de forma automática.
+Adiciona notas, as quais são arredondadas para uma casa decimal de forma automática.  
+Restrições: Não é permitido adicionar o mesmo ano duas vezes para um único estudante.
 
 ```json
 {
@@ -235,7 +239,7 @@ Busca de notas do estudante por ano.
 ```
 
 Put - /gradegrid/{ID}:  
-Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
+Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history") e valor da nota.
 
 ```json
 {
@@ -245,7 +249,7 @@ Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology",
 ```
 
 Put - /gradegrid:  
-Define o id do estudante, ano e nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
+Define o id do estudante, ano e nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history") e valor da nota.
 
 ```json
 {
