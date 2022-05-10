@@ -15,9 +15,9 @@ filters_model = FiltersModel()
 response = Response()
 
 
-# @jwt_required()
 @filters_ns.expect(token_header, filter_get_field_word)
 class FilterFieldWordCotroller(Resource):
+    @jwt_required()
     def get(self):
         try:
             data = FilterWordDto.parse_obj(request.get_json())

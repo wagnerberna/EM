@@ -24,6 +24,8 @@ response = Response()
 
 # GetAll
 class GradeGridAllController(Resource):
+    @grade_grid_ns.expect(token_header, grade_grid_add_fields)
+    @jwt_required()
     def get(self):
         try:
             payload_grade_grid_all = grade_grid_model.get_all()
@@ -38,7 +40,8 @@ class GradeGridAllController(Resource):
 
 # Post
 class GradeGridAddController(Resource):
-    @grade_grid_ns.expect(grade_grid_add_fields)
+    @grade_grid_ns.expect(token_header, grade_grid_add_fields)
+    @jwt_required()
     def post(self):
         try:
             new_scored = GradeGridAddDto.parse_obj(request.get_json())
@@ -67,6 +70,8 @@ class GradeGridAddController(Resource):
 
 # GetById / Update / Delete
 class GradeGridController(Resource):
+    @grade_grid_ns.expect(token_header)
+    @jwt_required()
     def get(self, id):
         try:
             data_scored = grade_grid_model.get_by_id(id)
@@ -80,8 +85,8 @@ class GradeGridController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @grade_grid_ns.expect(token_header, grade_grid_add_fields)
+    @jwt_required()
     def put(self, id):
         try:
             data = GradeGridUpdateDto.parse_obj(request.get_json())
@@ -95,8 +100,8 @@ class GradeGridController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @grade_grid_ns.expect(token_header)
+    @jwt_required()
     def delete(self, id):
         try:
             data_delete = grade_grid_model.delete(id)
@@ -110,6 +115,8 @@ class GradeGridController(Resource):
 
 
 class GradeGridAdvancedController(Resource):
+    @grade_grid_ns.expect(token_header)
+    @jwt_required()
     def get(self):
         try:
             data = GradeGridGetByStudentYearDto.parse_obj(request.get_json())
@@ -126,8 +133,8 @@ class GradeGridAdvancedController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @grade_grid_ns.expect(token_header, grade_grid_add_fields)
+    @jwt_required()
     def put(self):
         try:
             data = GradeGridUpdateByStudentYearDto.parse_obj(request.get_json())

@@ -20,6 +20,7 @@ response = Response()
 
 # GetAll
 class UsersController(Resource):
+    @jwt_required()
     def get(self):
         try:
             payload_users = user_model.get_all()
@@ -55,6 +56,8 @@ class UserAddController(Resource):
 
 # GetById / Update / Delete
 class UserController(Resource):
+    @user_ns.expect(token_header)
+    @jwt_required()
     def get(self, id):
         try:
             data_user = user_model.get_by_id(id)
@@ -68,8 +71,8 @@ class UserController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @user_ns.expect(token_header, user_put_fields)
+    @jwt_required()
     def put(self, id):
         try:
             data = UserUpdateStrDto.parse_obj(request.get_json())
@@ -83,8 +86,8 @@ class UserController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @user_ns.expect(token_header)
+    @jwt_required()
     def delete(self, id):
         try:
             data_delete = user_model.delete(id)
@@ -99,8 +102,8 @@ class UserController(Resource):
 
 # update status
 class UserControllerStatus(Resource):
-    # @jwt_required()
     @user_ns.expect(token_header, user_post_status)
+    @jwt_required()
     def put(self):
         try:
             payload = UserUpdateStatusDto.parse_obj(request.get_json())

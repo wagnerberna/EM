@@ -2,7 +2,6 @@ from flask import request
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from src.model.student import StudentModel
-from src.model.auth import AuthModel
 from src.core.student import StudentCore
 from src.resources.student_ns_payload import (
     student_ns,
@@ -15,12 +14,12 @@ from src.static.message import *
 from src.model.dto.student_dto import StudentAddDto, StudentUpdateDto
 
 student_model = StudentModel()
-auth_model = AuthModel()
 student_core = StudentCore()
 response = Response()
 
 # GetAll
 class StudentsController(Resource):
+    @jwt_required()
     def get(self):
         try:
             payload_students = student_model.get_all()
@@ -35,7 +34,8 @@ class StudentsController(Resource):
 
 # Post
 class StudentAddController(Resource):
-    @student_ns.expect(student_post_fields)
+    @jwt_required()
+    @student_ns.expect(token_header, student_post_fields)
     def post(self):
         try:
             new_student = StudentAddDto.parse_obj(request.get_json())
@@ -53,6 +53,8 @@ class StudentAddController(Resource):
 
 # GetById / Update / Delete
 class StudentController(Resource):
+    @student_ns.expect(token_header)
+    @jwt_required()
     def get(self, id):
         try:
             data_student = student_model.get_by_id(id)
@@ -66,8 +68,8 @@ class StudentController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @student_ns.expect(token_header, student_put_fields)
+    @jwt_required()
     def put(self, id):
         try:
             data = StudentUpdateDto.parse_obj(request.get_json())
@@ -81,8 +83,8 @@ class StudentController(Resource):
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
 
-    # @jwt_required()
     @student_ns.expect(token_header)
+    @jwt_required()
     def delete(self, id):
         try:
             data_delete = student_model.delete(id)

@@ -2,8 +2,8 @@
 
 ## 💡 Objetivo:
 
-API Para cadastro de aluno realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos, o banco utilizado para esta função foi PostgreSQL, suas tabelas são geradas automaticamente ao iniciar o sistema.
-Como endpoints adicionais foram incluídos um segundo cadastro de notas anuais dos alunos, sendo esta tabela conectada a primeira através da chave estrangeira de id do aluno.
+API Para cadastro de aluno realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos. O banco utilizado para esta função foi PostgreSQL, suas tabelas são geradas automaticamente ao iniciar o sistema.
+Como endpoints adicionais foi incluído um segundo cadastro de notas anuais dos alunos, sendo esta tabela conectada à primeira através da chave estrangeira de id do aluno.
 Também foram adicionados endpoints de cadastro e autenticação de logins de usuários para ter acesso ao sistema através de um token gerado na rota de login.
 
 ## 🛠 Tecnologias:
@@ -60,13 +60,17 @@ A URL de base para acesso das rotas é:
 |--------|-----------------|------------------------------|
 | Get    | /users          | Buscar todos                 |
 | Get    | /user/{ID}      | Buscar por ID                |
-| Post   | /user           | Adicionar                    |
+| Post * | /user           | Adicionar                    |
 | Put    | /user/{ID}      | Atualizar por ID e campo     |
 | Delete | /user/{ID}      | Deletar por ID               |
 | Put    | /user           | Ativar ou desativar por login|
 ```
 
 **Campos Rotas:**
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:
+Authorization: Bearer token
+
 Post - /user:
 
 ```json
@@ -102,11 +106,15 @@ Define o nome do login a ser ativado ou desativado e valor (true, false).
 ```python
 | Metodo | Rota            | Descricao                    |
 |--------|-----------------|------------------------------|
-| Post   | /auth/login     | Logar no sistema             |
+| Post * | /auth/login     | Logar no sistema             |
 | Post   | /auth/logout    | Deslogar do sistema          |
 ```
 
 **Campos Rotas:**
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:
+Authorization: Bearer token
+
 Post - /auth/login:
 
 ```json
@@ -130,6 +138,10 @@ Post - /auth/login:
 ```
 
 **Campos Rotas:**
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:
+Authorization: Bearer token
+
 Post - /student:
 Adiciona os dados do estudante os campos de string passam por uma normalização onde são colocados em minúsculos, retirados assentos e espaços no início e fim do campo para armazenamento, o CPF passa por um processo de retirada de pontos e traços.
 O e-mail é validado.
@@ -164,6 +176,10 @@ Define o nome do campo a ser atualizado ("name", "birth_date", "address", "tutor
 ```
 
 **Campos Rotas:**
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:
+Authorization: Bearer token
+
 Get - /filters:
 Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_email") e palavra chave da busca.
 
@@ -189,6 +205,10 @@ Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_e
 ```
 
 **Campos Rotas:**
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+-Header:
+Authorization: Bearer token
+
 Post - /gradegrid:
 Adiciona notas as quais são arredondadas para uma casa decimal de forma automática.
 
