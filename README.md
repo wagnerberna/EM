@@ -29,7 +29,7 @@ python3 -m venv .venv && source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-Configure as variáveis de ambiente criando o arquivo **.env** com as configurações, node será necessário substituir o XXX pela senha da base local de acesso ao PostgreSQL e o YYY será a chave secreta de geração do token.
+Configure as variáveis de ambiente criando o arquivo **.env** com as configurações, será necessário substituir o XXX pela senha da base local de acesso ao PostgreSQL e o YYY será a chave secreta de geração do token.
 
 ```bash
 POSTGRES_LOCAL = "postgresql://postgres:XXX@localhost:5432/postgres"
@@ -66,8 +66,8 @@ A URL de base para acesso das rotas é:
 | Put    | /user           | Ativar ou desativar por login|
 ```
 
-**Campos Rotas:**
-Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
+**Campos Rotas:**  
+Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:
 Authorization: Bearer token
 
@@ -210,7 +210,7 @@ Todos os campos execto os Marcados com \* usam o cabeçalho de autenticação.
 Authorization: Bearer token
 
 Post - /gradegrid:
-Adiciona notas as quais são arredondadas para uma casa decimal de forma automática.
+Adiciona notas, as quais são arredondadas para uma casa decimal de forma automática.
 
 ```json
 {
