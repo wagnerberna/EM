@@ -72,7 +72,7 @@ Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.
 Authorization: Bearer token
 
 Post - /user:  
-O password é salvo no banco criptografado.
+O password é salvo no banco criptografado.  
 Restrições: Não é permitido adicionar um login já existente.
 
 ```json
