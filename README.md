@@ -67,7 +67,7 @@ A URL de base para acesso das rotas é:
 ```
 
 **Campos Rotas:**  
-Todos os campos excecto os Marcados com \* usam o cabeçalho de autenticação.  
+Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:  
 Authorization: Bearer token
 
@@ -111,7 +111,7 @@ Define o nome do login a ser ativado ou desativado e valor (true, false).
 ```
 
 **Campos Rotas:**  
-Todos os campos excecto os Marcados com \* usam o cabeçalho de autenticação.  
+Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:  
 Authorization: Bearer token
 
@@ -138,7 +138,7 @@ Post - /auth/login:
 ```
 
 **Campos Rotas:**  
-Todos os campos excecto os Marcados com \* usam o cabeçalho de autenticação.  
+Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:  
 Authorization: Bearer token
 
@@ -176,7 +176,7 @@ Define o nome do campo a ser atualizado ("name", "birth_date", "address", "tutor
 ```
 
 **Campos Rotas:**  
-Todos os campos excecto os Marcados com \* usam o cabeçalho de autenticação.  
+Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:  
 Authorization: Bearer token
 
@@ -205,7 +205,7 @@ Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_e
 ```
 
 **Campos Rotas:**  
-Todos os campos excecto os Marcados com \* usam o cabeçalho de autenticação.  
+Todos os campos exceto os Marcados com \* usam o cabeçalho de autenticação.  
 -Header:  
 Authorization: Bearer token
 
