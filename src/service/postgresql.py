@@ -8,8 +8,8 @@ response = Response()
 
 load_dotenv()
 DATABASE_LOCAL = os.getenv("DATABASE_LOCAL")
-DATABASE_URL = os.getenv("DATABASE_URL")
 POSTGRES_LOCAL = os.getenv("POSTGRES_LOCAL")
+# DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 class Postgresql:

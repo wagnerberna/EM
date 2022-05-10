@@ -1,32 +1,46 @@
-# Desafio E.M.
+# Desafio EM
 
 ## 💡 Objetivo:
 
-API para raspagem de dados fictícios de candidatos aprovados no vestibular, realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos.
+API Para cadastro de aluno realizando o armazenamento, consulta, inserção, atualização e remoção dos mesmos, o banco utilizado para esta função foi PostgreSQL, suas tabelas são geradas automaticamente ao iniciar o sistema.
+Como endpoints adicionais foram incluídos um segundo cadastro de notas anuais dos alunos, sendo esta tabela conectada a primeira através da chave estrangeira de id do aluno.
+Também foram adicionados endpoints de cadastro e autenticação de logins de usuários para ter acesso ao sistema através de um token gerado na rota de login.
 
 ## 🛠 Tecnologias:
 
 - [Python](https://www.python.org/)
+- [Pytest](https://docs.pytest.org/)
+- [Flask](https://flask.palletsprojects.com/)
 - [Flask-RESTful](https://flask-restful.readthedocs.io/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
-- [SQLite](https://www.sqlite.org/)
+- [Flask-RESTX](https://flask-restx.readthedocs.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Dotenv](https://pypi.org/project/python-dotenv/)
+- [Pydantic](https://pydantic-docs.helpmanual.io/)
+- [Bcrypt](https://pypi.org/project/bcrypt/)
 - [Insomnia](https://insomnia.rest/)
-- [Pytest](https://docs.pytest.org)
 
-## 🔨 Configuração:
+## 🔨 Clonagem, Configurações e Variáveis de Ambiente:
 
 Através do terminal clone o diretório usando a chave SSH, crie o ambiente virtual e instale as dependências utilizando os seguintes comandos:
 
 ```bash
-git clone git@github.com:wagnerberna/Desafio_Neoway.git
+git clone git@github.com:wagnerberna/EM.git
 python3 -m venv .venv && source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-## 📌 Inicialização:
+Configure as variáveis de ambiente criando o arquivo **.env** com as configurações, node será necessário substituir o XXX pela senha da base local de acesso ao PostgreSQL e o YYY será a chave secreta de geração do token.
 
-#### API de Consulta, Inserção, Atualização e Remoção dos candidatos:
+```bash
+POSTGRES_LOCAL = "postgresql://postgres:XXX@localhost:5432/postgres"
+DATABASE_LOCAL = "postgresql://postgres:XXX@localhost:5432/school_test"
+APP_PORT = 5000
+APP_DEV = "config.DevConfig"
+APP_PROD = "config.ProdConfig"
+JWT_SECRET_KEY = "YYY"
+```
+
+## 📌 Inicialização da API:
 
 No terminal inicialize a API com o seguinte comando:
 
@@ -34,46 +48,192 @@ No terminal inicialize a API com o seguinte comando:
 python app.py
 ```
 
-## 🎲 Raspagem dos Dados:
-
-A coleta pode ser feita de forma parcial ou completa definindo os parâmetros do método. \
-Para iniciar raspagem completa execute o comando:
-
-```bash
-python -c "import start; start.scraping()"
-```
-
-### Parâmetros permitidos:
-
-**start_page:** número inteiro da página em que será iniciada a coleta. \
-**stop_page:** número inteiro da página final da coleta. \
-**sleep_time_page:** tempo de espera em segundos entre a coleta de cada página, para evitar que o servidor identifique as requisições como um ataque DDoS, e faça o bloqueio do IP. \
--Nenhum parâmetro é obrigatório, por padrão vai da primeira à última página sem tempo de espera entre requisições de páginas.
-Comando demonstrando a ordem dos parâmetros:
-
-```bash
-python -c "import start; start.scraping(start_page, stop_page, sleep_time_page)"
-```
-
-Exemplo de coleta da página 1000 até 2000 com 5 segundos de intervalo entre páginas:
-
-```bash
-python -c "import start; start.scraping(1000, 2000, 5)"
-```
-
 ## 🔎 Métodos e Rotas de Requisições:
 
 A URL de base para acesso das rotas é:
 **http://localhost:5000**
 
+### Rotas dos Usuários do Sistema:
+
 ```python
-| Metodo | Rota            | Descricao             |
-|--------|-----------------|-----------------------|
-| Get    | /candidates     | Buscar todos          |
-| Get    | /candidate/{ID} | Buscar por ID         |
-| Post   | /register       | Adicionar             |
-| Put    | /candidate/{ID} | Atuaizar dados por ID |
-| Delete | /candidate/{ID} | Deletar por ID        |
+| Metodo | Rota            | Descricao                    |
+|--------|-----------------|------------------------------|
+| Get    | /users          | Buscar todos                 |
+| Get    | /user/{ID}      | Buscar por ID                |
+| Post   | /user           | Adicionar                    |
+| Put    | /user/{ID}      | Atualizar por ID e campo     |
+| Delete | /user/{ID}      | Deletar por ID               |
+| Put    | /user           | Ativar ou desativar por login|
+```
+
+**Campos Rotas:**
+Post - /user:
+
+```json
+{
+  "name": "xxx",
+  "login": "xxx",
+  "password": "yyy"
+}
+```
+
+Put - /user/{ID}:
+Define o nome do campo a ser atualizado ("name", "login", "password") e valor.
+
+```json
+{
+  "field": "xxx",
+  "value": "yyy"
+}
+```
+
+Put - /user:
+Define o nome do login a ser ativado ou desativado e valor (true, false).
+
+```json
+{
+  "login": "xxx",
+  "status": true
+}
+```
+
+### Rotas de Auteticação:
+
+```python
+| Metodo | Rota            | Descricao                    |
+|--------|-----------------|------------------------------|
+| Post   | /auth/login     | Logar no sistema             |
+| Post   | /auth/logout    | Deslogar do sistema          |
+```
+
+**Campos Rotas:**
+Post - /auth/login:
+
+```json
+{
+  "login": "xxx",
+  "password": "yyy"
+}
+```
+
+### Rotas Estudantes:
+
+```python
+| Metodo | Rota            | Descricao                    |
+|--------|-----------------|------------------------------|
+| Get    | /students       | Buscar todos                 |
+| Get    | /student/{ID}   | Buscar por ID                |
+| Post   | /student        | Adicionar                    |
+| Put    | /student/{ID}   | Atualizar por ID             |
+| Delete | /student/{ID}   | Deletar por ID               |
+| Put    | /student        | Ativar ou desativar por login|
+```
+
+**Campos Rotas:**
+Post - /student:
+Adiciona os dados do estudante os campos de string passam por uma normalização onde são colocados em minúsculos, retirados assentos e espaços no início e fim do campo para armazenamento, o CPF passa por um processo de retirada de pontos e traços.
+O e-mail é validado.
+
+```json
+{
+  "name": "xxx",
+  "birth_date": "yyyy-mm-dd",
+  "address": "xxx",
+  "tutor_name": "xxx",
+  "cpf_tutor": "100.200.300-00",
+  "tutor_email": "xxx@xxx.com"
+}
+```
+
+Put - /user/{ID}:
+Define o nome do campo a ser atualizado ("name", "birth_date", "address", "tutor_name", "cpf_tutor", "tutor_email") e valor.
+
+```json
+{
+  "field": "xxx",
+  "value": "yyy"
+}
+```
+
+### Rota de Filtros Estudantes:
+
+```python
+| Metodo | Rota            | Descricao                                        |
+|--------|-----------------|--------------------------------------------------|
+| Get    | /filters        | Filtro por palavra chave e campo a ser filtrado  |
+```
+
+**Campos Rotas:**
+Get - /filters:
+Define o nome do campo a ser filtrado ("name", "address", "tutor_name", "tutor_email") e palavra chave da busca.
+
+```json
+{
+  "field": "xxx",
+  "word": "yyy"
+}
+```
+
+### Rotas da Grade de Notas Anual:
+
+```python
+| Metodo | Rota            | Descricao                    |
+|--------|-----------------|------------------------------|
+| Get    | /grandegridall  | Buscar todos                 |
+| Get    | /gradegrid/{ID} | Buscar por ID                |
+| Get    | /gradegrid      | Buscar por estudante e ano   |
+| Post   | /gradegrid      | Adicionar                    |
+| Put    | /gradegrid/{ID} | Atualizar por ID             |
+| Put    | /gradegrid      | Atualizar por estudante e ano|
+| Delete | /gradegrid/{ID} | Deletar por ID               |
+```
+
+**Campos Rotas:**
+Post - /gradegrid:
+Adiciona notas as quais são arredondadas para uma casa decimal de forma automática.
+
+```json
+{
+  "student_id": 1,
+  "year": 2000,
+  "portuguese": 7.5,
+  "mathematics": 7.5,
+  "biology": 7.5,
+  "geography": 7.5,
+  "history": 7.5
+}
+```
+
+Get - /gradegrid:
+Busca de notas do estudante por ano.
+
+```json
+{
+  "student_id": 1,
+  "year": 2000
+}
+```
+
+Put - /gradegrid/{ID}:
+Define o nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
+
+```json
+{
+  "subject": "xxx",
+  "scored": 2.5
+}
+```
+
+Put - /gradegrid:
+Define o id do estudante, ano e nome do campo a ser atualizado ("portuguese", "mathematics", "biology", "geography", "history",) e valor da nota.
+
+```json
+{
+  "student_id": 1,
+  "year": 2000,
+  "subject": "biology",
+  "scored": 2.5
+}
 ```
 
 ## 🔒 Testes
