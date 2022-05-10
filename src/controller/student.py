@@ -45,7 +45,7 @@ class StudentAddController(Resource):
             if student_add == 0:
                 return response.failed(NOT_CREATED, "Student"), 409
 
-            return response.sucess(CREATED, "Student"), 201
+            return response.success(CREATED, "Student"), 201
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
@@ -76,7 +76,7 @@ class StudentController(Resource):
 
             if student_update == 0:
                 return response.failed(NOT_FOUND, "Student"), 404
-            return response.sucess(UPDATE_SUCCESS), 200
+            return response.success(UPDATE_SUCCESS), 200
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
@@ -89,7 +89,7 @@ class StudentController(Resource):
 
             if data_delete == 0:
                 return response.failed(NOT_FOUND, "Student"), 404
-            return response.sucess(DELETED, "Student"), 200
+            return response.success(DELETED, "Student"), 200
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500

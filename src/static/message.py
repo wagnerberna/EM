@@ -1,4 +1,4 @@
-# sucess
+# success
 SUCCESS = "Request made successfully."
 CREATED = "{} created."
 DELETED = "{} deleted."

@@ -47,7 +47,7 @@ class UserAddController(Resource):
             if user_add == 0:
                 return response.failed(NOT_CREATED, "User"), 409
 
-            return response.sucess(CREATED, "User"), 201
+            return response.success(CREATED, "User"), 201
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
@@ -78,7 +78,7 @@ class UserController(Resource):
 
             if user_update == 0:
                 return response.failed(NOT_FOUND, "User"), 404
-            return response.sucess(UPDATE_SUCCESS), 200
+            return response.success(UPDATE_SUCCESS), 200
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
@@ -91,7 +91,7 @@ class UserController(Resource):
 
             if data_delete == 0:
                 return response.failed(NOT_FOUND, "User"), 404
-            return response.sucess(DELETED, "User"), 200
+            return response.success(DELETED, "User"), 200
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
@@ -107,7 +107,7 @@ class UserControllerStatus(Resource):
             if not user_model.find_login(payload.login):
                 return response.failed(NOT_FOUND, "Login"), 404
             user_model.update_status(payload)
-            return response.sucess(UPDATE_SUCCESS), 200
+            return response.success(UPDATE_SUCCESS), 200
 
         except Exception as error:
             return response.failed(INTERNAL_ERROR, error), 500
