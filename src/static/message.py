@@ -1,0 +1,21 @@
+# sucess
+SUCCESS = "Request made successfully."
+CREATED = "{} created."
+DELETED = "{} deleted."
+UPDATE_SUCCESS = "Successfully update"
+LOGGED_SUCCESSFUL = "Logged out successfully."
+LOGGED_OUT = "You have been logged out."
+
+# failed
+ERROR_MESSAGE = "Error message: {}"
+INTERNAL_ERROR = "Internal error:{}"
+FIELD_NOT_BLANK = "The field {} cannot be blank."
+FIELD_INVALID = "invalid field check the list of valid fields: {}"
+AUTH_FAILED = "Login or password incorrect."
+NOT_FOUND = "{} not found."
+NOT_CREATED = "{} not created."
+ALREDY_EXISTS = "{} alredy exists."
+LOGIN_INACTIVE = "Login inactived"
+NOTHING_FILTER = "No results found"
+PASSWORD_LENGTH = "Password cannot be less than 6 digits."
+VALUE_MIN = "{} cannot be less than {}."
