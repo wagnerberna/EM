@@ -48,6 +48,10 @@ No terminal inicialize a API com o seguinte comando:
 python app.py
 ```
 
+## 🎲 Diagrama ER:
+
+![🎲](img/ER-Diagram.png)
+
 ## 🔎 Métodos e Rotas de Requisições:
 
 A URL de base para acesso das rotas é:
